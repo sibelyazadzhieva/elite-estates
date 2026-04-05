@@ -1,10 +1,89 @@
 {% extends 'base.html' %}
+{% load custom_filters %}
 
 {% block content %}
-    <h2>Welcome to EliteEstates!</h2>
-    <p>Your premier destination for finding the perfect home.</p>
+<div class="text-center rounded-3 shadow-lg position-relative overflow-hidden" style="
+    background-image: url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=2075');
+    height: 500px;
+    background-size: cover;
+    background-position: center;">
 
-    {% if not request.user.is_authenticated %}
-        <p>Please <a href="{% url 'login' %}">Login</a> or <a href="{% url 'register' %}">Register</a> to start booking viewings.</p>
-    {% endif %}
+    <div class="d-flex justify-content-center align-items-center h-100" style="background-color: rgba(0, 0, 0, 0.6);">
+        <div class="text-white px-4">
+            <h1 class="mb-3 display-3 fw-bold shadow-sm">Welcome to EliteEstates</h1>
+            <h4 class="mb-4 fw-light">Your premier destination for finding the perfect home.</h4>
+            <a class="btn btn-primary btn-lg px-5 py-3 fw-bold rounded-pill shadow" href="{% url 'property_catalog' %}" role="button">
+                Browse Properties 🏠
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-5 text-center">
+    <h2 class="fw-bold mb-4">Why Choose Us?</h2>
+
+    <div class="col-md-4 mb-4">
+        <div class="card h-100 border-0 shadow-sm p-4 hover-shadow transition">
+            <div class="card-body">
+                <h1 class="display-4 text-primary mb-3">💎</h1>
+                <h5 class="card-title fw-bold">Premium Listings</h5>
+                <p class="card-text text-muted">We offer the most exclusive and luxurious properties on the market, verified for quality.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <div class="card h-100 border-0 shadow-sm p-4">
+            <div class="card-body">
+                <h1 class="display-4 text-success mb-3">🤝</h1>
+                <h5 class="card-title fw-bold">Expert Agents</h5>
+                <p class="card-text text-muted">Our dedicated professionals will guide you every step of the way with market expertise.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <div class="card h-100 border-0 shadow-sm p-4">
+            <div class="card-body">
+                <h1 class="display-4 text-danger mb-3">❤️</h1>
+                <h5 class="card-title fw-bold">Find Your Match</h5>
+                <p class="card-text text-muted">Save your favorite properties, track them, and book viewings with a single click.</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="mt-5 mb-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold">Latest Properties</h2>
+        <a href="{% url 'property_catalog' %}" class="btn btn-outline-primary">View All Properties</a>
+    </div>
+
+    <div class="row">
+        {% for property in latest_properties %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm hover-shadow">
+                    {% if property.image %}
+                        <img src="{{ property.image.url }}" class="card-img-top" alt="{{ property.title }}" style="height: 200px; object-fit: cover;">
+                    {% else %}
+                        <div class="card-img-top bg-secondary d-flex justify-content-center align-items-center text-light" style="height: 200px;">
+                            <span>No Image Available</span>
+                        </div>
+                    {% endif %}
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">{{ property.title }}</h5>
+                        <p class="card-text text-muted mb-1"><small>📍 {{ property.location }}</small></p>
+                        <p class="card-text fw-bold text-primary mb-3">{{ property.price|currency }}</p>
+                        <div class="mt-auto">
+                            <a href="{% url 'property_detail' property.pk %}" class="btn btn-outline-primary btn-sm w-100">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <div class="col-12 text-center text-muted">
+                <p class="fs-5 mt-3">No properties listed yet. Check back soon!</p>
+            </div>
+        {% endfor %}
+    </div>
+</div>
 {% endblock %}

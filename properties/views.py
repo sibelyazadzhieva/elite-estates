@@ -7,7 +7,7 @@ from rest_framework.generics import ListAPIView
 from rest_framework.permissions import AllowAny
 
 from .models import Property
-from .forms import PropertyForm
+from .forms import PropertyForm, FeatureForm, Feature
 from .serializers import PropertySerializer
 
 
@@ -15,7 +15,7 @@ class PropertyListView(ListView):
     model = Property
     template_name = 'properties/property_list.html'
     context_object_name = 'properties'
-
+    paginate_by = 6
 
 class PropertyDetailView(DetailView):
     model = Property
@@ -61,6 +61,7 @@ class PropertyDeleteView(LoginRequiredMixin, StaffRequiredMixin, DeleteView):
 
 
 class PropertyLikeView(LoginRequiredMixin, View):
+
     def post(self, request, pk):
         property = get_object_or_404(Property, pk=pk)
 
@@ -78,3 +79,9 @@ class FavoritePropertiesView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         return self.request.user.favorite_properties.all()
+
+class FeatureCreateView(LoginRequiredMixin, StaffRequiredMixin, CreateView):
+    model = Feature
+    form_class = FeatureForm
+    template_name = 'properties/feature_form.html'
+    success_url = reverse_lazy('add_property')

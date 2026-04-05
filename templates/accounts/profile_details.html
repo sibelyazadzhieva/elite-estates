@@ -14,11 +14,15 @@
                 <p><strong>Email:</strong> {{ profile_user.email|default:"Not provided" }}</p>
 
                 <hr>
-                <div class="d-flex justify-content-between">
-                    <a href="{% url 'profile_edit' %}" class="btn btn-warning">✏ Edit Profile</a>
+
+                <div class="d-grid gap-2 d-md-flex justify-content-md-between flex-wrap">
+                    <div>
+                        <a href="{% url 'profile_edit' %}" class="btn btn-warning mb-2 mb-md-0 me-md-2">✏ Edit Profile</a>
+                        <a href="{% url 'password_change' %}" class="btn btn-secondary mb-2 mb-md-0">🔑 Change Password</a>
+                    </div>
                     <a href="{% url 'profile_delete' %}" class="btn btn-danger">🗑 Delete Account</a>
                 </div>
-            </div>
+                </div>
         </div>
     </div>
 </div>
