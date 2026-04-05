@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6 text-center mt-5">
+        <div class="card border-danger shadow-sm">
+            <div class="card-body">
+                <h2 class="text-danger mb-4">Delete Account?</h2>
+                <p class="fs-5">Are you sure you want to permanently delete your account (<strong>{{ request.user.username }}</strong>)?</p>
+                <p class="text-muted">All your data, including appointments, will be lost.</p>
+                <form method="post" class="mt-4">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger me-2">Yes, Delete My Account</button>
+                    <a href="{% url 'profile_details' %}" class="btn btn-secondary">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

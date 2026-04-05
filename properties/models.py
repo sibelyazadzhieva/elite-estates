@@ -25,6 +25,9 @@ class Property(models.Model):
     image = models.ImageField(upload_to='property_images/', blank=True, null=True)
     agent = models.ForeignKey(UserModel, on_delete=models.CASCADE, related_name='properties')
     features = models.ManyToManyField(Feature, related_name='properties', blank=True)
+    likes = models.ManyToManyField(UserModel, related_name='favorite_properties', blank=True)
 
     def __str__(self):
         return f"{self.title} - {self.location}"
+
+

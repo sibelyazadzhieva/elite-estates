@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2 class="mb-4">❤️ My Favorite Properties</h2>
+
+{% if properties %}
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for property in properties %}
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    {% if property.image %}
+                        <img src="{{ property.image.url }}" class="card-img-top" alt="{{ property.title }}" style="height: 200px; object-fit: cover;">
+                    {% else %}
+                        <div class="bg-secondary text-light d-flex justify-content-center align-items-center" style="height: 200px;">
+                            <span>No Image</span>
+                        </div>
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ property.title }}</h5>
+                        <h6 class="card-subtitle mb-2 text-primary fw-bold">${{ property.price }}</h6>
+                        <p class="card-text text-muted small">📍 {{ property.location }}</p>
+                    </div>
+                    <div class="card-footer bg-white border-top-0 pb-3">
+                        <a href="{% url 'property_detail' property.pk %}" class="btn btn-outline-primary w-100">View Details</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <div class="alert alert-info text-center mt-5" role="alert">
+        <h4 class="alert-heading">No favorites yet!</h4>
+        <p>You haven't liked any properties yet. Go to the catalog and find your dream home!</p>
+        <hr>
+        <a href="{% url 'property_catalog' %}" class="btn btn-primary">Browse Catalog</a>
+    </div>
+{% endif %}
+{% endblock %}
