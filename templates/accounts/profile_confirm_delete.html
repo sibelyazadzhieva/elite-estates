@@ -1,20 +1,89 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
-<div class="row justify-content-center">
-    <div class="col-md-6 text-center mt-5">
-        <div class="card border-danger shadow-sm">
-            <div class="card-body">
-                <h2 class="text-danger mb-4">Delete Account?</h2>
-                <p class="fs-5">Are you sure you want to permanently delete your account (<strong>{{ request.user.username }}</strong>)?</p>
-                <p class="text-muted">All your data, including appointments, will be lost.</p>
-                <form method="post" class="mt-4">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-danger me-2">Yes, Delete My Account</button>
-                    <a href="{% url 'profile_details' %}" class="btn btn-secondary">Cancel</a>
-                </form>
+<div style="background-color: #f8f9fa; min-height: 100vh;">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-8 text-center mt-4">
+
+                <div class="card bg-white border-0 shadow-sm rounded-4 overflow-hidden">
+                    <div class="card-body p-5">
+
+                        <div class="mb-4">
+                            <div class="d-inline-flex align-items-center justify-content-center rounded-circle bg-danger bg-opacity-10 text-danger" style="width: 80px; height: 80px;">
+                                <i class="bi bi-exclamation-triangle-fill" style="font-size: 2.5rem;"></i>
+                            </div>
+                        </div>
+
+                        <h2 class="fw-bold mb-3 text-danger">Delete Account?</h2>
+
+                        <p class="fs-6 text-dark fw-medium mb-2">
+                            Are you sure you want to permanently delete your account (<strong>{{ request.user.username }}</strong>)?
+                        </p>
+                        <p class="text-muted small mb-5 px-md-4">
+                            This action cannot be undone. All your data, including scheduled appointments and favorite properties, will be lost forever.
+                        </p>
+
+                        <form method="post" class="mt-2">
+                            {% csrf_token %}
+                            <div class="d-flex flex-column flex-sm-row justify-content-center gap-3">
+                                <button type="submit" class="btn-elite-danger py-2 px-4">
+                                    Yes, Delete My Account
+                                </button>
+                                 <a href="{% url 'profile_details' %}" class="btn-elite-secondary py-2 px-4">
+                                    Cancel, Keep Account
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+<style>
+    .btn-elite-danger {
+        background-color: #dc3545;
+        color: white;
+        border-radius: 50px;
+        font-size: 0.95rem;
+        font-weight: 700;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        border: 1px solid #dc3545;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+    }
+    .btn-elite-danger:hover {
+        background-color: #c82333;
+        border-color: #bd2130;
+        color: white;
+        box-shadow: 0 4px 12px rgba(220, 53, 69, 0.2);
+        transform: translateY(-2px);
+    }
+
+    .btn-elite-secondary {
+        background-color: white;
+        color: #2c3e50;
+        border-radius: 50px;
+        font-size: 0.95rem;
+        font-weight: 700;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        border: 1px solid #dee2e6;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .btn-elite-secondary:hover {
+        background-color: #f8f9fa;
+        border-color: #2c3e50;
+        color: #2c3e50;
+        transform: translateY(-2px);
+    }
+</style>
 {% endblock %}

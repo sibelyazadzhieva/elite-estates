@@ -1,38 +1,102 @@
 {% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
 
 {% block content %}
-<h2 class="mb-4">❤️ My Favorite Properties</h2>
+<div class="container mt-5 mb-5 pb-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-11">
 
-{% if properties %}
-    <div class="row row-cols-1 row-cols-md-3 g-4">
-        {% for property in properties %}
-            <div class="col">
-                <div class="card h-100 shadow-sm">
-                    {% if property.image %}
-                        <img src="{{ property.image.url }}" class="card-img-top" alt="{{ property.title }}" style="height: 200px; object-fit: cover;">
-                    {% else %}
-                        <div class="bg-secondary text-light d-flex justify-content-center align-items-center" style="height: 200px;">
-                            <span>No Image</span>
-                        </div>
-                    {% endif %}
-                    <div class="card-body">
-                        <h5 class="card-title">{{ property.title }}</h5>
-                        <h6 class="card-subtitle mb-2 text-primary fw-bold">${{ property.price }}</h6>
-                        <p class="card-text text-muted small">📍 {{ property.location }}</p>
-                    </div>
-                    <div class="card-footer bg-white border-top-0 pb-3">
-                        <a href="{% url 'property_detail' property.pk %}" class="btn btn-outline-primary w-100">View Details</a>
-                    </div>
+            <div class="d-flex justify-content-between align-items-center border-bottom pb-4 mb-5 flex-wrap gap-3">
+                <div style="flex-shrink: 0;">
+                    <h2 class="fw-bold mb-0" style="color: #2c3e50; white-space: nowrap;">My Favorite Properties</h2>
+                    <p class="text-muted small mb-0 mt-1">Your curated collection of exclusive real estate</p>
+                </div>
+
+                <div style="flex-shrink: 0;">
+                    <span class="badge rounded-pill px-3 py-2 shadow-sm" style="background-color: #2c3e50; color: white;">
+                        {{ properties|length }} Properties
+                    </span>
                 </div>
             </div>
-        {% endfor %}
+
+            {% if properties %}
+                <div class="row g-4">
+                    {% for property in properties %}
+                        <div class="col-md-6 col-lg-4">
+                            <div class="card h-100 bg-white border rounded-4 overflow-hidden property-card shadow-sm">
+
+                                <div class="position-relative">
+                                    {% if property.image %}
+                                        <img src="{{ property.image.url }}" class="card-img-top w-100" style="height: 220px; object-fit: cover;" alt="{{ property.title }}">
+                                    {% else %}
+                                        <div class="bg-light d-flex justify-content-center align-items-center" style="height: 220px;">
+                                            <i class="bi bi-house text-muted fs-1"></i>
+                                        </div>
+                                    {% endif %}
+
+                                    <div class="position-absolute top-0 end-0 m-3">
+                                        <i class="bi bi-heart-fill text-white fs-5" style="filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));"></i>
+                                    </div>
+                                </div>
+
+                                <div class="card-body p-4 d-flex flex-column">
+                                    <div class="mb-3">
+                                        <h5 class="fw-bold mb-1" style="color: #2c3e50;">{{ property.title }}</h5>
+                                        <p class="text-muted small mb-0">
+                                            <i class="bi bi-geo-alt me-1"></i>{{ property.location }}
+                                        </p>
+                                    </div>
+
+                                    <div class="mt-auto d-flex justify-content-between align-items-center pt-3 border-top">
+                                        <h5 class="fw-bold mb-0" style="color: #2c3e50;">
+                                            ${{ property.price|floatformat:0|intcomma }}
+                                        </h5>
+                                        <a href="{% url 'property_detail' property.pk %}" class="btn text-white rounded-pill px-4 shadow-sm btn-details" style="background-color: #2c3e50; font-size: 0.85rem;">
+                                            Details
+                                        </a>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="row justify-content-center mt-5">
+                    <div class="col-md-6 text-center py-5 bg-white shadow-sm rounded-4 border">
+                        <div class="mb-4">
+                            <i class="bi bi-heart text-muted" style="font-size: 4rem; opacity: 0.2;"></i>
+                        </div>
+                        <h4 class="fw-bold" style="color: #2c3e50;">No favorites yet</h4>
+                        <p class="text-muted px-4">Start exploring our properties and save the ones you love.</p>
+                        <a href="{% url 'property_catalog' %}" class="btn text-white rounded-pill px-4 shadow-sm" style="background-color: #2c3e50;">
+                            Browse Catalog
+                        </a>
+                    </div>
+                </div>
+            {% endif %}
+
+        </div>
     </div>
-{% else %}
-    <div class="alert alert-info text-center mt-5" role="alert">
-        <h4 class="alert-heading">No favorites yet!</h4>
-        <p>You haven't liked any properties yet. Go to the catalog and find your dream home!</p>
-        <hr>
-        <a href="{% url 'property_catalog' %}" class="btn btn-primary">Browse Catalog</a>
-    </div>
-{% endif %}
+</div>
+
+<style>
+    .property-card {
+        transition: all 0.3s ease;
+        border-color: #f0f0f0 !important;
+    }
+    .property-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 24px rgba(0,0,0,0.06) !important;
+    }
+
+    .btn-details {
+        transition: all 0.3s ease;
+    }
+    .btn-details:hover {
+        background-color: #1a252f !important;
+        transform: scale(1.02);
+    }
+</style>
 {% endblock %}

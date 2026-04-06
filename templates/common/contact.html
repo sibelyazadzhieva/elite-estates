@@ -1,29 +1,145 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
-<div class="row justify-content-center">
-    <div class="col-md-6">
-        <h2 class="text-center mb-4">Contact Us</h2>
-        <div class="card shadow-sm">
-            <div class="card-body">
-                <form method="post">
-                    {% csrf_token %}
-                    <div class="mb-3">
-                        <label class="form-label fw-bold">Name</label>
-                        {{ form.name }}
+<div style="background-color: #f8f9fa; min-height: 100vh;">
+
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-11">
+
+                <div class="d-flex justify-content-between align-items-end pb-3 mb-5" style="border-bottom: 1px solid #2c3e50;">
+                    <div>
+                        <h2 class="fw-bold mb-0" style="color: #2c3e50;">Contact Us</h2>
+                        <p class="text-muted small mb-0 mt-1">Have questions? Our team is always here to help.</p>
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label fw-bold">Email address</label>
-                        {{ form.email }}
+                </div>
+
+                <div class="row g-4">
+                    <div class="col-lg-4">
+                        <div class="p-4 rounded-4 shadow-sm border-0 bg-white h-100">
+                            <h4 class="fw-bold mb-4" style="color: #2c3e50;">Contact Details</h4>
+
+                            <div class="d-flex align-items-center mb-4">
+                                <div class="rounded-circle d-flex align-items-center justify-content-center shadow-sm"
+                                     style="width: 50px; height: 50px; background-color: #f1f3f5;">
+                                    <i class="bi bi-geo-alt fs-5" style="color: #2c3e50;"></i>
+                                </div>
+                                <div class="ms-3">
+                                    <h6 class="fw-bold mb-0">Location</h6>
+                                    <p class="text-muted small mb-0">123 Luxury Blvd, Monaco</p>
+                                </div>
+                            </div>
+
+                            <div class="d-flex align-items-center mb-4">
+                                <div class="rounded-circle d-flex align-items-center justify-content-center shadow-sm"
+                                     style="width: 50px; height: 50px; background-color: #f1f3f5;">
+                                    <i class="bi bi-envelope fs-5" style="color: #2c3e50;"></i>
+                                </div>
+                                <div class="ms-3">
+                                    <h6 class="fw-bold mb-0">Email</h6>
+                                    <p class="text-muted small mb-0">office@eliteestates.com</p>
+                                </div>
+                            </div>
+
+                            <div class="d-flex align-items-center mb-4">
+                                <div class="rounded-circle d-flex align-items-center justify-content-center shadow-sm"
+                                     style="width: 50px; height: 50px; background-color: #f1f3f5;">
+                                    <i class="bi bi-telephone fs-5" style="color: #2c3e50;"></i>
+                                </div>
+                                <div class="ms-3">
+                                    <h6 class="fw-bold mb-0">Phone</h6>
+                                    <p class="text-muted small mb-0">+377 98 00 00 00</p>
+                                </div>
+                            </div>
+
+                            <div class="mt-5 pt-4 border-top">
+                                <h6 class="fw-bold mb-3" style="color: #2c3e50;"><i class="bi bi-clock me-2"></i>Business Hours</h6>
+                                <div class="d-flex justify-content-between mb-1 small text-muted">
+                                    <span>Monday - Friday</span>
+                                    <span class="fw-bold" style="color: #2c3e50;">09:00 - 18:00</span>
+                                </div>
+                                <div class="d-flex justify-content-between mb-1 small text-muted">
+                                    <span>Saturday</span>
+                                    <span class="fw-bold" style="color: #2c3e50;">10:00 - 14:00</span>
+                                </div>
+                                <div class="d-flex justify-content-between small text-muted">
+                                    <span>Sunday</span>
+                                    <span class="fw-bold" style="color: #2c3e50;">Closed</span>
+                                </div>
+                            </div>
+
+                            <div class="mt-5 pt-3 border-top">
+                                <h6 class="fw-bold mb-3">Connect with us</h6>
+                                <div class="d-flex gap-2">
+                                    <a href="#" class="social-icon"><i class="bi bi-facebook"></i></a>
+                                    <a href="#" class="social-icon"><i class="bi bi-instagram"></i></a>
+                                    <a href="#" class="social-icon"><i class="bi bi-linkedin"></i></a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label fw-bold">Message</label>
-                        {{ form.message }}
+
+                    <div class="col-lg-8">
+                        <div class="p-5 rounded-4 shadow-sm border-0 bg-white h-100">
+                            <h4 class="fw-bold mb-4" style="color: #2c3e50;">Send a Message</h4>
+
+                            <form method="POST">
+                                {% csrf_token %}
+                                <div class="row g-4">
+                                    <div class="col-md-6">
+                                        <label class="form-label small fw-bold">Full Name</label>
+                                        <input type="text" class="form-control custom-field shadow-none" placeholder="Full Name">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label small fw-bold">Email Address</label>
+                                        <input type="email" class="form-control custom-field shadow-none" placeholder="name@example.com">
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label class="form-label small fw-bold">Subject</label>
+                                        <input type="text" class="form-control custom-field shadow-none" placeholder="How can we help?">
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label class="form-label small fw-bold">Message</label>
+                                        <textarea class="form-control custom-field shadow-none" rows="4" placeholder="Write your message here..."></textarea>
+                                    </div>
+                                    <div class="col-md-12 mt-4 text-end">
+                                        <button type="submit" class="btn btn-dark rounded-pill px-5 py-3 fw-bold shadow-sm btn-submit">
+                                            Send Message <i class="bi bi-send-fill ms-2"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </div>
-                    <button type="submit" class="btn btn-primary w-100">Send Message</button>
-                </form>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+<style>
+    .custom-field {
+        background-color: #f8f9fa;
+        border: 1px solid #e9ecef;
+        border-radius: 12px;
+        padding: 12px 15px;
+        transition: 0.3s;
+    }
+    .custom-field:focus {
+        background-color: #fff;
+        border-color: #2c3e50;
+        box-shadow: 0 0 0 4px rgba(44, 62, 80, 0.05);
+        outline: none;
+    }
+    .social-icon {
+        width: 40px; height: 40px;
+        display: flex; align-items: center; justify-content: center;
+        border-radius: 50%; background-color: #f1f3f5; color: #2c3e50;
+        text-decoration: none; transition: 0.3s;
+    }
+    .social-icon:hover { background-color: #2c3e50; color: white; transform: translateY(-3px); }
+    .btn-submit { background-color: #2c3e50; border: none; transition: 0.3s; }
+    .btn-submit:hover { background-color: #1a252f; transform: translateY(-2px); box-shadow: 0 8px 15px rgba(0,0,0,0.1) !important; }
+</style>
 {% endblock %}

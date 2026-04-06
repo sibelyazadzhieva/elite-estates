@@ -1,21 +1,131 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
-<div class="row justify-content-center">
-    <div class="col-md-6 mt-4">
-        <h2 class="text-center mb-4">Edit Profile</h2>
-        <div class="card shadow-sm">
-            <div class="card-body">
-                <form method="post">
-                    {% csrf_token %}
-                    {{ form.as_p }}
-                    <div class="d-grid gap-2 mt-4">
-                        <button type="submit" class="btn btn-warning">Save Changes</button>
-                        <a href="{% url 'profile_details' %}" class="btn btn-outline-secondary">Cancel</a>
+<div style="background-color: #f8f9fa; min-height: 100vh;">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-7 col-md-9">
+
+                <div class="d-flex justify-content-between align-items-end border-bottom pb-3 mb-5" style="border-color: #2c3e50; border-bottom-width: 2px;">
+                    <div>
+                        <h2 class="fw-bold mb-0" style="color: #2c3e50;">Edit Profile</h2>
+                        <p class="text-muted small mb-0 mt-1">Update your personal information.</p>
                     </div>
-                </form>
+                </div>
+
+                <div class="card bg-white border-0 shadow-sm rounded-4 overflow-hidden">
+                    <div class="card-body p-4 p-md-5">
+
+                        <form method="post" class="elite-form">
+                            {% csrf_token %}
+
+                            {{ form.as_p }}
+
+                            <div class="d-flex gap-3 mt-5 pt-4 border-top flex-wrap">
+                                <button type="submit" class="btn-elite-primary flex-grow-1 justify-content-center">
+                                    Save Changes
+                                </button>
+                                <a href="{% url 'profile_details' %}" class="btn-elite-secondary flex-grow-1 justify-content-center">
+                                    Cancel
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+<style>
+    .elite-form p {
+        margin-bottom: 1.5rem;
+    }
+
+    .elite-form label {
+        font-weight: 700;
+        color: #2c3e50;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+        margin-bottom: 0.5rem;
+        display: block;
+    }
+
+    .elite-form input[type="text"],
+    .elite-form input[type="email"],
+    .elite-form input[type="password"] {
+        width: 100%;
+        padding: 12px 16px;
+        font-size: 1rem;
+        color: #2c3e50;
+        background-color: #fcfcfc;
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        transition: all 0.3s ease;
+    }
+
+    .elite-form input:focus {
+        outline: none;
+        border-color: #2c3e50;
+        background-color: #fff;
+        box-shadow: 0 0 0 4px rgba(44, 62, 80, 0.1);
+    }
+
+    .elite-form .helptext {
+        font-size: 0.75rem;
+        color: #6c757d;
+        margin-top: 6px;
+        display: block;
+    }
+
+    .elite-form .errorlist {
+        color: #dc3545;
+        list-style: none;
+        padding: 0;
+        font-size: 0.85rem;
+        margin-top: 5px;
+        font-weight: 600;
+    }
+
+    .btn-elite-primary {
+        background-color: #2c3e50;
+        color: white;
+        padding: 12px 24px;
+        border-radius: 50px;
+        font-size: 0.95rem;
+        font-weight: 700;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        border: 1px solid #2c3e50;
+        display: inline-flex;
+        align-items: center;
+        cursor: pointer;
+    }
+    .btn-elite-primary:hover {
+        background-color: #1a252f;
+        color: white;
+        box-shadow: 0 4px 12px rgba(44, 62, 80, 0.2);
+    }
+
+    .btn-elite-secondary {
+        background-color: white;
+        color: #2c3e50;
+        padding: 12px 24px;
+        border-radius: 50px;
+        font-size: 0.95rem;
+        font-weight: 700;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        border: 1px solid #dee2e6;
+        display: inline-flex;
+        align-items: center;
+    }
+    .btn-elite-secondary:hover {
+        background-color: #f8f9fa;
+        border-color: #2c3e50;
+        color: #2c3e50;
+    }
+</style>
 {% endblock %}

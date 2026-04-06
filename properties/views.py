@@ -5,6 +5,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from rest_framework.generics import ListAPIView
 from rest_framework.permissions import AllowAny
+from django.db.models import Q
 
 from .models import Property
 from .forms import PropertyForm, FeatureForm, Feature
@@ -13,9 +14,22 @@ from .serializers import PropertySerializer
 
 class PropertyListView(ListView):
     model = Property
-    template_name = 'properties/property_list.html'
     context_object_name = 'properties'
     paginate_by = 6
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        query = self.request.GET.get('q')
+        if query:
+            queryset = queryset.filter(
+                Q(title__icontains=query) | Q(location__icontains=query)
+            )
+        return queryset
+
+    def get_template_names(self):
+        if self.request.headers.get('HX-Request'):
+            return ['properties/property_list_partial.html']
+        return ['properties/property_list.html']
 
 class PropertyDetailView(DetailView):
     model = Property

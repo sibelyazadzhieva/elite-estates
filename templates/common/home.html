@@ -1,89 +1,125 @@
 {% extends 'base.html' %}
+{% load static %}
 {% load custom_filters %}
 
 {% block content %}
-<div class="text-center rounded-3 shadow-lg position-relative overflow-hidden" style="
-    background-image: url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=2075');
-    height: 500px;
-    background-size: cover;
-    background-position: center;">
+<div class="container mb-5 mt-3">
+    <div class="row justify-content-center mb-5">
+        <div class="col-lg-11">
+            <div class="position-relative shadow-sm overflow-hidden" style="height: 520px; background-color: #1a202c; border-radius: 0;">
+                <img src="{% static 'images/hero-bg.jpg' %}" alt="Elite Estates" class="w-100 h-100" style="object-fit: cover; opacity: 0.65;">
 
-    <div class="d-flex justify-content-center align-items-center h-100" style="background-color: rgba(0, 0, 0, 0.6);">
-        <div class="text-white px-4">
-            <h1 class="mb-3 display-3 fw-bold shadow-sm">Welcome to EliteEstates</h1>
-            <h4 class="mb-4 fw-light">Your premier destination for finding the perfect home.</h4>
-            <a class="btn btn-primary btn-lg px-5 py-3 fw-bold rounded-pill shadow" href="{% url 'property_catalog' %}" role="button">
-                Browse Properties 🏠
-            </a>
-        </div>
-    </div>
-</div>
+                <div class="position-absolute top-50 start-50 translate-middle text-center text-white w-100 px-3">
+                    <h1 class="display-4 fw-bold mb-3" style="letter-spacing: -1px; text-shadow: 0 2px 5px rgba(0,0,0,0.5);">
+                        Discover The Ultimate Lifestyle
+                    </h1>
+                    <p class="fs-5 mb-4 fw-light opacity-90" style="letter-spacing: 0.5px;">Find & Secure the best properties from around the world.</p>
 
-<div class="row mt-5 text-center">
-    <h2 class="fw-bold mb-4">Why Choose Us?</h2>
-
-    <div class="col-md-4 mb-4">
-        <div class="card h-100 border-0 shadow-sm p-4 hover-shadow transition">
-            <div class="card-body">
-                <h1 class="display-4 text-primary mb-3">💎</h1>
-                <h5 class="card-title fw-bold">Premium Listings</h5>
-                <p class="card-text text-muted">We offer the most exclusive and luxurious properties on the market, verified for quality.</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-4 mb-4">
-        <div class="card h-100 border-0 shadow-sm p-4">
-            <div class="card-body">
-                <h1 class="display-4 text-success mb-3">🤝</h1>
-                <h5 class="card-title fw-bold">Expert Agents</h5>
-                <p class="card-text text-muted">Our dedicated professionals will guide you every step of the way with market expertise.</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-4 mb-4">
-        <div class="card h-100 border-0 shadow-sm p-4">
-            <div class="card-body">
-                <h1 class="display-4 text-danger mb-3">❤️</h1>
-                <h5 class="card-title fw-bold">Find Your Match</h5>
-                <p class="card-text text-muted">Save your favorite properties, track them, and book viewings with a single click.</p>
+                    <a href="{% url 'property_catalog' %}" class="btn btn-glass rounded-pill px-5 py-3 fw-bold text-uppercase shadow-sm" style="font-size: 0.95rem; letter-spacing: 1px;">
+                        Browse All Properties
+                    </a>
+                </div>
             </div>
         </div>
     </div>
 </div>
-<div class="mt-5 mb-5">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 class="fw-bold">Latest Properties</h2>
-        <a href="{% url 'property_catalog' %}" class="btn btn-outline-primary">View All Properties</a>
-    </div>
 
-    <div class="row">
-        {% for property in latest_properties %}
-            <div class="col-md-4 mb-4">
-                <div class="card h-100 shadow-sm hover-shadow">
-                    {% if property.image %}
-                        <img src="{{ property.image.url }}" class="card-img-top" alt="{{ property.title }}" style="height: 200px; object-fit: cover;">
-                    {% else %}
-                        <div class="card-img-top bg-secondary d-flex justify-content-center align-items-center text-light" style="height: 200px;">
-                            <span>No Image Available</span>
-                        </div>
-                    {% endif %}
-                    <div class="card-body d-flex flex-column">
-                        <h5 class="card-title">{{ property.title }}</h5>
-                        <p class="card-text text-muted mb-1"><small>📍 {{ property.location }}</small></p>
-                        <p class="card-text fw-bold text-primary mb-3">{{ property.price|currency }}</p>
-                        <div class="mt-auto">
-                            <a href="{% url 'property_detail' property.pk %}" class="btn btn-outline-primary btn-sm w-100">View Details</a>
+<div class="bg-light py-5 mb-5 border-top border-bottom">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold mb-3" style="color: #2c3e50;">Where Luxury Meets Comfort</h2>
+            <p class="mx-auto" style="max-width: 800px; line-height: 1.6; font-size: 1.1rem; color: #4a5568;">
+                Providing exclusive access to the world's most prestigious properties with personalized service. <br class="d-none d-md-block">
+                Let our expertise guide you to the perfect home that matches your vision.
+            </p>
+        </div>
+
+        <div class="row g-4 text-center justify-content-center">
+            <div class="col-md-4">
+                <div class="bg-white p-5 rounded-3 border shadow-sm h-100 feature-card d-flex flex-column justify-content-center" style="min-height: 260px;">
+                    <div class="mb-4"><i class="bi bi-gem fs-1" style="color: #2c3e50;"></i></div>
+                    <h5 class="fw-bold" style="color: #2c3e50;">Premium Listings</h5>
+                    <p class="text-muted small mb-0">We offer the most exclusive and luxurious properties on the market, verified for quality.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="bg-white p-5 rounded-3 border shadow-sm h-100 feature-card d-flex flex-column justify-content-center" style="min-height: 260px;">
+                    <div class="mb-4"><i class="bi bi-person-check fs-1" style="color: #2c3e50;"></i></div>
+                    <h5 class="fw-bold" style="color: #2c3e50;">Expert Agents</h5>
+                    <p class="text-muted small mb-0">Our dedicated professionals will guide you every step of the way with market expertise.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="bg-white p-5 rounded-3 border shadow-sm h-100 feature-card d-flex flex-column justify-content-center" style="min-height: 260px;">
+                    <div class="mb-4"><i class="bi bi-heart fs-1" style="color: #2c3e50;"></i></div>
+                    <h5 class="fw-bold" style="color: #2c3e50;">Find Your Match</h5>
+                    <p class="text-muted small mb-0">Save your favorite properties, track them, and book viewings with a single click.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container py-2 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-11">
+            <div class="d-flex justify-content-between align-items-end mb-4 border-bottom pb-3">
+                <div>
+                    <h3 class="fw-bold mb-0" style="color: #2c3e50;">Recently Added Properties</h3>
+                    <p class="text-muted small mb-0 mt-1">Explore our newest listings on the market</p>
+                </div>
+                <a href="{% url 'property_catalog' %}" class="btn btn-link text-decoration-none fw-medium p-0" style="color: #4a5568;">View All &rarr;</a>
+            </div>
+
+            <div class="row g-4">
+                {% for property in latest_properties %}
+                <div class="col-md-4">
+                    <div class="card h-100 border border-light shadow-sm rounded-3 overflow-hidden bg-white property-card">
+                        {% if property.image %}
+                            <img src="{{ property.image.url }}" class="card-img-top" style="height: 240px; object-fit: cover;" alt="{{ property.title }}">
+                        {% else %}
+                            <div class="bg-light d-flex align-items-center justify-content-center" style="height: 240px; border-bottom: 1px solid #eee;">
+                                <span class="text-muted fst-italic">No image available</span>
+                            </div>
+                        {% endif %}
+                        <div class="card-body p-4">
+                            <h5 class="card-title fw-bold mb-1 text-decoration-none" style="color: #2c3e50;">{{ property.title }}</h5>
+                            <p class="text-muted small mb-3">
+                                <i class="bi bi-geo-alt" style="color: #6c757d;"></i> {{ property.location }}
+                            </p>
+                            <div class="d-flex justify-content-between align-items-center mt-auto border-top pt-3">
+                                <span class="fw-bold fs-5" style="color: #2c3e50;">{{ property.price|currency }}</span>
+                                <a href="{% url 'property_detail' property.pk %}" class="btn text-white rounded-pill px-4 btn-sm" style="background-color: #2c3e50;">
+                                    Details
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
+                {% empty %}
+                <div class="col-12 text-center py-5">
+                    <p class="text-muted fs-5">No properties found. Be the first to create one!</p>
+                </div>
+                {% endfor %}
             </div>
-        {% empty %}
-            <div class="col-12 text-center text-muted">
-                <p class="fs-5 mt-3">No properties listed yet. Check back soon!</p>
-            </div>
-        {% endfor %}
+        </div>
     </div>
 </div>
+
+<style>
+    .property-card, .feature-card { transition: all 0.3s ease; border-color: #f0f0f0 !important; }
+    .property-card:hover, .feature-card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0,0,0,0.06) !important; }
+
+    .btn-glass {
+        background-color: rgba(255, 255, 255, 0.2);
+        color: white !important;
+        border: 2px solid white;
+        backdrop-filter: blur(5px);
+        transition: all 0.3s ease;
+    }
+    .btn-glass:hover {
+        background-color: white;
+        color: #2c3e50 !important;
+    }
+</style>
 {% endblock %}
