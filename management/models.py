@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from properties.models import Property
+from django.core.validators import MinValueValidator
 
 UserModel = get_user_model()
 
@@ -20,6 +21,11 @@ class Contract(models.Model):
     monthly_rent = models.DecimalField(max_digits=10, decimal_places=2)
     is_active = models.BooleanField(default=True)
 
+    monthly_rent = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        validators=[MinValueValidator(0.01)]
+    )
     included_services = models.ManyToManyField(Service, related_name='contracts', blank=True)
 
     def __str__(self):

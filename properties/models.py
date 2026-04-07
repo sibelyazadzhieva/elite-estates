@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.core.validators import MinValueValidator
 
 UserModel = get_user_model()
 
@@ -14,6 +15,7 @@ class Property(models.Model):
         ('apartment', 'Apartment'),
         ('house', 'House'),
         ('commercial', 'Commercial'),
+
     ]
 
     title = models.CharField(max_length=150)
@@ -26,6 +28,12 @@ class Property(models.Model):
     agent = models.ForeignKey(UserModel, on_delete=models.CASCADE, related_name='properties')
     features = models.ManyToManyField(Feature, related_name='properties', blank=True)
     likes = models.ManyToManyField(UserModel, related_name='favorite_properties', blank=True)
+
+    price = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        validators=[MinValueValidator(0.01)]
+    )
 
     def __str__(self):
         return f"{self.title} - {self.location}"

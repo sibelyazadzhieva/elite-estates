@@ -22,3 +22,19 @@ class FeatureForm(forms.ModelForm):
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'e.g. Swimming Pool'}),
         }
+
+class PropertySearchForm(forms.Form):
+    query = forms.CharField(
+        required=False,
+        label='Search',
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Search location...'})
+    )
+    min_price = forms.DecimalField(required=False, widget=forms.NumberInput(attrs={'class': 'form-control'}))
+    max_price = forms.DecimalField(required=False, widget=forms.NumberInput(attrs={'class': 'form-control'}))
+
+    def clean(self):
+        cleaned_data = super().clean()
+        if cleaned_data.get('min_price') and cleaned_data.get('max_price'):
+            if cleaned_data['min_price'] > cleaned_data['max_price']:
+                raise forms.ValidationError("Min price cannot be above max price.")
+        return cleaned_data
