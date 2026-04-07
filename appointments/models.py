@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from properties.models import Property
+from django.utils import timezone
 
 UserModel = get_user_model()
 
@@ -11,6 +12,11 @@ class Appointment(models.Model):
     notes = models.TextField(blank=True, null=True, verbose_name="Additional Notes")
     is_approved = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
+
+    def is_past(self):
+        if self.date_and_time:
+            return self.date_and_time < timezone.now()
+        return False
 
     def __str__(self):
         return f"Viewing: {self.property.title} by {self.client.username}"

@@ -1,13 +1,23 @@
 from django import forms
 from .models import Appointment
+from django.utils import timezone
+from django.core.exceptions import ValidationError
 
 class AppointmentForm(forms.ModelForm):
     agency_info = forms.CharField(
         initial="EliteEstates",
         disabled=True,
         required=False,
-        label="Agency"
-    )
+        label="Agency" )
+
+    def clean_date_and_time(self):
+        date = self.cleaned_data.get('date_and_time')
+
+        if date and date < timezone.now():
+            raise ValidationError("You cannot book an appointment in the past. Please select a valid future date.")
+
+        return date
+
 
     class Meta:
         model = Appointment

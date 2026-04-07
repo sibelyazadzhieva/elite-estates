@@ -1,0 +1,1 @@
+web: gunicorn elite_estates.wsgi --log-file -

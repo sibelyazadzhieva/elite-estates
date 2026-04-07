@@ -8,7 +8,7 @@
         const currentPath = window.location.pathname;
         const referrer = document.referrer;
 
-        if (referrer && !referrer.includes(currentPath) && referrer !== "") {
+        if (referrer && !referrer.includes(currentPath) && !referrer.includes('appointment') && referrer !== "") {
             sessionStorage.setItem('elite_back_url', referrer);
         }
     })();
@@ -27,7 +27,7 @@
     <div class="container py-4">
 
        <div class="mb-4">
-            <a href="{% url 'property_catalog' %}" class="text-decoration-none text-muted fw-bold small elite-back-link">
+            <a href="javascript:void(0);" onclick="goBack()" class="text-decoration-none text-muted fw-bold small elite-back-link">
                 <i class="bi bi-arrow-left me-2"></i> Back
             </a>
        </div>
@@ -131,9 +131,17 @@
                             </form>
                         {% endif %}
 
-                        <a href="{% url 'book_appointment' property.pk %}" class="btn btn-elite-dark w-100 py-3 fw-bold">
-                            Book a Viewing
-                        </a>
+                    {% if user.is_authenticated %}
+                        {% if not user.is_staff and not user.is_superuser %}
+                            <a href="{% url 'book_appointment' property.id %}" class="btn btn-elite-dark w-100 py-3 fw-bold">
+                                Book Viewing
+                            </a>
+                        {% else %}
+                            <p class="text-muted small"><em>Agents cannot book viewings for properties.</em></p>
+                        {% endif %}
+                    {% else %}
+                        <p>Please <a href="{% url 'login' %}"> login</a> to book a viewing.</p>
+                    {% endif %}
                     </div>
 
                     {% if request.user.is_staff %}
