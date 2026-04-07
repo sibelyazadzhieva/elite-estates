@@ -1,11 +1,123 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
-    <h2>Login</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Login</button>
-    </form>
-    <p>Don't have an account? <a href="{% url 'register' %}">Register here</a></p>
+<div style="background-color: #f8f9fa; min-height: 100vh; position: relative; display: flex; align-items: center; justify-content: center;">
+
+    <div style="position: absolute; top: 30px; left: 30px;">
+        <a href="{% url 'home' %}" class="text-decoration-none text-muted fw-bold small elite-back-link">
+            <i class="bi bi-arrow-left me-2"></i> Back to Homepage
+        </a>
+    </div>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-5 col-md-7 col-sm-10">
+
+                <div class="text-center mb-4">
+                    <h2 class="fw-bold" style="color: #2c3e50; letter-spacing: -1px;">Login</h2>
+                    <p class="text-muted small">Please enter your account details.</p>
+                </div>
+
+                <div class="card bg-white border-0 shadow-sm rounded-4 overflow-hidden">
+                    <div class="card-body p-4 p-md-5">
+
+                        <form method="post" class="elite-form">
+                            {% csrf_token %}
+
+                            {% for field in form %}
+                                <div class="mb-4">
+                                    <label for="{{ field.id_for_label }}" class="elite-label">
+                                        {{ field.label }}
+                                    </label>
+
+                                    {{ field }}
+
+                                    {% if field.errors %}
+                                        {% for error in field.errors %}
+                                            <div class="text-danger small fw-bold mt-1">{{ error }}</div>
+                                        {% endfor %}
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+
+                            <div class="d-grid mt-5">
+                                <button type="submit" class="btn-elite-primary py-3">
+                                    Sign In
+                                </button>
+                            </div>
+                        </form>
+
+                        <div class="text-center mt-4 pt-3 border-top">
+                            <p class="text-muted small mb-0">
+                                Don't have an account?
+                                <a href="{% url 'register' %}" class="fw-bold text-dark text-decoration-none elite-link">Register here</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .elite-back-link {
+        transition: all 0.3s ease;
+        opacity: 0.7;
+    }
+    .elite-back-link:hover {
+        opacity: 1;
+        color: #2c3e50 !important;
+        transform: translateX(-5px);
+    }
+
+    .elite-label {
+        font-weight: 700;
+        color: #2c3e50;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 0.6rem;
+        display: block;
+    }
+
+    .elite-form input {
+        width: 100%;
+        padding: 14px 18px;
+        font-size: 1rem;
+        color: #2c3e50;
+        background-color: #fcfcfc;
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        transition: all 0.3s ease;
+    }
+
+    .elite-form input:focus {
+        outline: none;
+        border-color: #2c3e50;
+        background-color: #fff;
+        box-shadow: 0 0 0 4px rgba(44, 62, 80, 0.08);
+    }
+
+    .btn-elite-primary {
+        background-color: #2c3e50;
+        color: white;
+        border-radius: 50px;
+        font-size: 1rem;
+        font-weight: 700;
+        border: none;
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+    .btn-elite-primary:hover {
+        background-color: #1a252f;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(44, 62, 80, 0.15);
+    }
+
+    .elite-link:hover {
+        text-decoration: underline !important;
+    }
+</style>
 {% endblock %}

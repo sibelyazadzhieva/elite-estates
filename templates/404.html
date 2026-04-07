@@ -1,10 +1,47 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
-<div class="container text-center mt-5">
-    <h1 class="display-1 fw-bold text-danger">404</h1>
-    <h2 class="mb-4">Oops! Page Not Found</h2>
-    <p class="fs-5 text-muted mb-4">The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.</p>
-    <a href="{% url 'home' %}" class="btn btn-primary btn-lg">Return to Home</a>
+<div style="background-color: #f8f9fa; min-height: 100vh; display: flex; align-items: center;">
+    <div class="container py-5 text-center">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-8">
+
+                <div class="mb-5">
+                    <div class="d-inline-flex align-items-center justify-content-center rounded-circle bg-white shadow-sm" style="width: 120px; height: 120px; border: 1px solid #e2e8f0;">
+                        <span class="fw-bold display-4" style="color: #2c3e50; position: relative; z-index: 1;">404</span>
+                    </div>
+                </div>
+
+                <h1 class="fw-bold mb-3" style="color: #2c3e50; letter-spacing: -1px;">Lost in the Neighborhood?</h1>
+                <p class="text-muted fs-5 mb-5 px-md-4">
+                    The property or page you are looking for doesn't exist or has been moved to a new address.
+                </p>
+
+                <div class="d-flex flex-column flex-sm-row justify-content-center gap-3">
+                    <a href="{% url 'home' %}" class="btn-elite-primary px-5">
+                        <i class="bi bi-house-door me-2"></i> Return Home
+                    </a>
+                    <a href="{% url 'property_catalog' %}" class="btn-elite-secondary px-5">
+                        Explore Properties
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+<style>
+    .btn-elite-primary {
+        background-color: #2c3e50; color: white; padding: 12px 24px; border-radius: 50px;
+        font-weight: 700; border: none; transition: 0.3s; text-decoration: none;
+    }
+    .btn-elite-primary:hover { background-color: #1a252f; transform: translateY(-2px); }
+
+    .btn-elite-secondary {
+        background-color: white; color: #2c3e50; padding: 12px 24px; border-radius: 50px;
+        font-weight: 700; border: 1px solid #dee2e6; transition: 0.3s; text-decoration: none;
+    }
+    .btn-elite-secondary:hover { background-color: #f8f9fa; border-color: #2c3e50; }
+</style>
 {% endblock %}
