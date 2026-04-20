@@ -5,7 +5,7 @@
 ## 🌐 Live Demo
 The project is deployed and live at: [https://elite-estates.onrender.com](https://elite-estates.onrender.com)
 
-## 🚀 Advanced Features (Retake Exam Updates)
+## 🚀 Advanced Features
 To meet the production-ready standards, the following advanced features have been implemented:
 
 * **Asynchronous Task Processing (Celery & Redis):** Background tasks are integrated to improve performance, such as handling confirmation emails for property viewings.
@@ -68,9 +68,10 @@ The project includes automated tests for custom logic, views, and user-related f
 
 ```bash
 python manage.py test
+```
 
 ## 📄 API Documentation
 The application provides at least two RESTful API endpoints using appropriate serializers and permissions:
 
 * `GET /properties/api/` - Returns a list of all available property listings.
-* `GET /reviews/api/list/` - Returns a list of all user reviews.я
+* `GET /reviews/api/list/` - Returns a list of all user reviews.
