@@ -6,6 +6,7 @@ from .models import Appointment
 from .forms import AppointmentForm
 from properties.models import Property
 from django.views.generic import ListView, UpdateView, DeleteView
+from .tasks import send_appointment_confirmation_email
 
 class AppointmentCreateView(LoginRequiredMixin, CreateView):
     model = Appointment
@@ -15,7 +16,9 @@ class AppointmentCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.client = self.request.user
         form.instance.property_id = self.kwargs['pk']
-        return super().form_valid(form)
+        response = super().form_valid(form)
+        send_appointment_confirmation_email.delay(self.object.id)
+        return response
 
     def get_success_url(self):
         return reverse_lazy('property_detail', kwargs={'pk': self.kwargs['pk']})

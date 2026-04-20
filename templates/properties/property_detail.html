@@ -131,17 +131,21 @@
                             </form>
                         {% endif %}
 
-                    {% if user.is_authenticated %}
-                        {% if not user.is_staff and not user.is_superuser %}
-                            <a href="{% url 'book_appointment' property.id %}" class="btn btn-elite-dark w-100 py-3 fw-bold">
-                                Book Viewing
+                        {% if user.is_authenticated %}
+                            {% if not user.is_staff and not user.is_superuser %}
+                                <a href="{% url 'book_appointment' property.id %}" class="btn btn-elite-dark w-100 py-3 fw-bold">
+                                    Book Viewing
+                                </a>
+                            {% else %}
+                                <p class="text-muted small mb-0"><em>Agents cannot book viewings for properties.</em></p>
+                            {% endif %}
+
+                            <a href="{% url 'review_create' property.id %}" class="btn btn-outline-secondary w-100 py-2 fw-bold" style="border-radius: 50px;">
+                                <i class="bi bi-pencil-square me-2"></i>Write a Review
                             </a>
                         {% else %}
-                            <p class="text-muted small"><em>Agents cannot book viewings for properties.</em></p>
+                            <p>Please <a href="{% url 'login' %}"> login</a> to book a viewing or write a review.</p>
                         {% endif %}
-                    {% else %}
-                        <p>Please <a href="{% url 'login' %}"> login</a> to book a viewing.</p>
-                    {% endif %}
                     </div>
 
                     {% if request.user.is_staff %}

@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container py-4" style="background-color: #f8f9fa; min-height: 100vh;">
+
+    <div class="mb-4">
+        <a href="{% url 'property_detail' property.id %}" class="text-decoration-none text-muted fw-bold small">
+            <i class="bi bi-arrow-left me-2"></i> Back to Property
+        </a>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-5">
+            <div class="text-center mb-4">
+                <h2 class="fw-bold mb-1" style="color: #2c3e50;">Write a Review</h2>
+                <p class="text-muted small">Experience <strong>{{ property.title }}</strong> in your own words.</p>
+            </div>
+
+            <div class="card border-0 shadow-sm rounded-4 p-4 p-md-5 bg-white">
+                <form method="post" novalidate>
+                    {% csrf_token %}
+
+                    {% for field in form %}
+                        <div class="mb-4 text-start">
+                            <label for="{{ field.id_for_label }}" class="form-label fw-bold text-muted small text-uppercase" style="letter-spacing: 0.5px;">
+                                {{ field.label }}
+                            </label>
+                            {{ field }}
+                            {% if field.help_text %}
+                                <div class="form-text text-muted small mt-1">{{ field.help_text }}</div>
+                            {% endif %}
+                            {% if field.errors %}
+                                <div class="text-danger small mt-1">
+                                    {% for error in field.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+
+                    <div class="d-grid gap-3 mt-5">
+                        <button type="submit" class="btn text-white py-3 rounded-pill fw-bold" style="background-color: #2c3e50; font-size: 1rem;">
+                            Submit Review
+                        </button>
+                        <a href="{% url 'property_detail' property.id %}" class="btn btn-white border rounded-pill py-3 fw-bold text-dark" style="font-size: 1rem;">
+                            Cancel
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    input.form-control, textarea.form-control, select.form-control {
+        border-radius: 8px;
+        border: 1px solid #dee2e6;
+        padding: 0.75rem 1rem;
+    }
+</style>
+{% endblock %}

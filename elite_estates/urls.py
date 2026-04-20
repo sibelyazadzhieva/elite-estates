@@ -9,7 +9,8 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
     path('properties/', include('properties.urls')),
     path('', include('common.urls')),
-    path('appointments/', include('appointments.urls'))
+    path('appointments/', include('appointments.urls')),
+    path('reviews/', include('reviews.urls')),
 ]
 
 if not settings.DEBUG:
