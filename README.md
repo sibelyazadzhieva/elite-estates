@@ -73,5 +73,5 @@ python manage.py test
 ## 📄 API Documentation
 The application provides at least two RESTful API endpoints using appropriate serializers and permissions:
 
-* `GET /properties/api/` - Returns a list of all available property listings.
+* `GET /properties/api/catalog/` - Returns a list of all available property listings.
 * `GET /reviews/api/list/` - Returns a list of all user reviews.
